@@ -13,6 +13,6 @@ setup(
     author="Enrique Escalante-Notario&Ignacio Portillo-Castillo& Saúl Ramos-Sánchez",
     author_email="enriquescalante@gmail.com"
     url="http://github.com/enriqueescalante",
-    packages=['numpy', 'torch', 'scikit-learn', 'pandas']
+    install_requires=['numpy', 'torch', 'scikit-learn', 'pandas']
     scripts=[]
 )
