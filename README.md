@@ -17,13 +17,14 @@ This module uses the information produced by `the orbifolder`, but before it mus
 ## Installation
 
 
-For installation you must first clone this repository or download the compressed file and unzip it.
+For installation, you must first clone this repository or download the compressed file and unzip it.
 
 Once located in the module folder, you just need to run
 
 ```
 python setup.py install
 ```
+
 to install all the necessary dependencies.
 
 It is also important to note that there are several data files, covering Z12, Z8, among others, in the Data folder. We also provide a 
