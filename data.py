@@ -56,20 +56,12 @@ class CustomDatasetExtra(Dataset):
     def __getitem__(self, idx):
         return self.X_train[idx], self.y_train[idx]
     
-    
-# Adapted function to calculate one hot encoding lengths each features of dataset
-def lenght_ohe(PATH):
-    datos = pd.read_csv(PATH)
-    lengths = []
-    for column in datos.columns:
-        lengths.append(datos[column].nunique())
-    return sum(lengths)
 
-# Adapted function to calculete  # same function
+# Adapted function to calculate of each ohe vector by feature
 
 def lenghts_features(name_dataset):
-    datos = pd.read_csv(name_dataset)
+    data = pd.read_csv(name_dataset)
     lengths = []
-    for column in datos.columns:
-        lengths.append(datos[column].nunique())
+    for column in data.columns:
+        lengths.append(data[column].nunique())
     return lengths
