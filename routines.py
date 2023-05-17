@@ -67,7 +67,7 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
     best_optimizer = optimizer.state_dict()
 
     for epoch in range(1,epochs+1):
-      
+        print('-' * 50)
         # Each epoch has a training and validation phase
         for phase in ['train','valid']:
             if phase == 'train':
@@ -110,7 +110,7 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
             epoch_loss = running_loss / len(dataloader.dataset)
             epoch_acc = running_corrects / len(dataloader.dataset)
 
-            print('-' * 50)
+
             print('Epoch {}/{}'.format(epoch, epochs))
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
 
@@ -134,7 +134,6 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
    
     loggertrain.close()
     
-# ------------------------------------------------------------------------------  
     
 # Latent space model mapping
 def process(model, dataloader, latent, output_file):
@@ -226,14 +225,22 @@ def reconstruction(model, label_states, **kwargs):
     
     
 # space latente new models
-def reconstruction_other_models(device, dataloader_other_models):
+def reconstruction_other_models(model, label_states, datasetname_other, **kwargs):
 
-    print('Reconstruction running other models', end='\n')
-    nombre = "./savedModels/model-"+funcion+".pt"
-    dicc_model = torch.load(nombre,map_location=torch.device('cpu'))
-    model = Net(dimensions).to(device)
-    model.load_state_dict(dicc_model['model_dict'])
+    # Load and ohe dataset 
+    print('Preparing data',end='\n')
+    dataset_other = dt.CustomDataset(kwargs['datasetname'], datasetname_other)
+    dataloader_other = torch.utils.data.DataLoader(dataset_other,
+        batch_size=kwargs['batchsize'], shuffle=True, num_workers=kwargs['workers'])
     
-    x1 = "latentother"+funcion
-    process(model, device, dataloader_other_models, x1)
+    # Load states and instantion model 
+    print('Load model')
+    path = "./savedModels/"+label_states+".pt"
+    dict_model = torch.load(path, map_location=torch.device('cpu'))
+    model_trained = model.to('cpu')   
+    model_trained.load_state_dict(dict_model['model_dict'])
+    epoch_trained = dict_model['epoch']
+        
+    output = "./latentSpaces/latent_"+datasetname_other+"_"+label_states
+    process(model, device, dataloader_other, output)
     
