@@ -125,6 +125,9 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
                 best_model_wts = model.state_dict()
                 best_optimizer = optimizer.state_dict()
                 best_epoch = epoch
+            if phase == 'valid' and epoch % kwargs['save_each_epoch'] == 0:
+                save(str(epoch)+"epoch_"+kwargs['label'], model.state_dict(), optimizer.state_dict(), epoch)
+                
 
     # Save the best model
     save("best-"+kwargs['label'], best_model_wts, best_optimizer, best_epoch)
@@ -219,4 +222,18 @@ def reconstruction(model, label_states, **kwargs):
     # success construction
     print('Construction of success each feature')
     success(model_trained, dataloader, label_states, kwargs["lenghts_data"], epoch_trained)
+    
+    
+    
+# space latente new models
+def reconstruction_other_models(device, dataloader_other_models):
+
+    print('Reconstruction running other models', end='\n')
+    nombre = "./savedModels/model-"+funcion+".pt"
+    dicc_model = torch.load(nombre,map_location=torch.device('cpu'))
+    model = Net(dimensions).to(device)
+    model.load_state_dict(dicc_model['model_dict'])
+    
+    x1 = "latentother"+funcion
+    process(model, device, dataloader_other_models, x1)
     
