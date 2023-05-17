@@ -40,9 +40,11 @@ class CustomDataset(Dataset):
 # Adapted function for data importation of alternative dataset
 class CustomDatasetExtra(Dataset):
     def __init__(self, file_principal_name, file_alternative_name):
-        ohe = OneHotEncoder(dtype=np.int8)
+        
+        ohe = OneHotEncoder(handle_unknown='ignore', dtype=np.int8)
         file_principal = pd.read_csv(file_principal_name)
         file_alternati = pd.read_csv(file_alternative_name)
+        
         trans = ohe.fit(file_principal)
         data_tensor = pd.DataFrame(trans.transform(file_alternati).toarray())
         
