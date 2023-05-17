@@ -10,6 +10,8 @@
 
 
 from sklearn.preprocessing import OneHotEncoder
+import torch
+from torch.utils.data import Dataset
 import pandas as pd
 import numpy as np
 
@@ -58,7 +60,6 @@ class CustomDatasetExtra(Dataset):
     
 
 # Adapted function to calculate of each ohe vector by feature
-
 def lenghts_features(name_dataset):
     data = pd.read_csv(name_dataset)
     lengths = []
