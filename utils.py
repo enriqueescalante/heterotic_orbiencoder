@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
-from mpl_toolkits.mplot3d import Axes3D
+
 
 
 head = ["Epoch", "Loss_train", "Accuracy_train", "Loss_validation", "Accuracy_validation"]
@@ -132,12 +132,12 @@ def plot_2d_latent_space(latent_geo_z8, latent_geo_z12, ext="pdf", number_sample
     dfGeo2.plot.scatter('y1','y2', color="Red", label=r"Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3)
 
 
-    ax1.set_xlabel("y1", fontdict = {'fontsize':36})
-    ax1.set_ylabel("y2", fontdict = {'fontsize':40})
-    ax2.set_xlabel("y1", fontdict = {'fontsize':36})
-    ax2.set_ylabel("y3", fontdict = {'fontsize':40})
-    ax3.set_xlabel("y2", fontdict = {'fontsize':36})
-    ax3.set_ylabel("y3", fontdict = {'fontsize':40})
+    ax1.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax1.set_ylabel("$y_2$",fontdict = {'fontsize':40})
+    ax2.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax2.set_ylabel("$y_3$",fontdict = {'fontsize':40})
+    ax3.set_xlabel("$y_2$",fontdict = {'fontsize':36})
+    ax3.set_ylabel("$y_3$",fontdict = {'fontsize':40})
     ax1.xaxis.set_tick_params(labelsize=30)
     ax1.yaxis.set_tick_params(labelsize=30)
     ax2.xaxis.set_tick_params(labelsize=30)
@@ -154,4 +154,291 @@ def plot_2d_latent_space(latent_geo_z8, latent_geo_z12, ext="pdf", number_sample
     plt.show()
 
     
+def plot_2d_latent_mssm(latent_geo_z8, latent_geo_z12, mssm_z8, mssm_12, ext="pdf", number_sample=1000):
     
+    path_geo_z8 = "./latentSpaces/"+latent_geo_z8
+    path_geo_z12 = "./latentSpaces/"+latent_geo_z12
+    
+    path_geo_mssm_z8 = "./latentSpaces/"+mssm_z8
+    path_geo_mssm_z12 = "./latentSpaces/"+mssm_12
+
+    head = ['y1','y2','y3']
+
+    dfGeo1 = pd.read_csv(path_geo_mssm_z8, sep=" ", names=head).sample(50)
+    dfGeo2 = pd.read_csv(path_geo_mssm_z12, sep=" ", names=head).sample(50)
+
+    dfGeo1a = pd.read_csv(path_geo_z8, sep=" ", names=head).sample(number_sample)
+    dfGeo2a = pd.read_csv(path_geo_z12, sep=" ", names=head).sample(number_sample)
+
+
+    fig, (ax1,ax2,ax3) = plt.subplots(figsize=(60,15),ncols=3)
+    # firt plane   
+    dfGeo1.plot.scatter('y1', 'y2', label=r"MSSM models from $\mathrm{\mathbb{Z}_8}$", ax=ax1, s=120, color="Orange")
+    dfGeo2.plot.scatter('y1', 'y2', color="Green", label=r"MSSM models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax1, s=120)
+    dfGeo1a.plot.scatter('y1','y2', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax1, alpha=0.3)
+    dfGeo2a.plot.scatter('y1','y2', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax1, alpha=0.3)
+    # second plane
+    dfGeo1.plot.scatter('y1','y3', label=r"MSSM models from $\mathrm{\mathbb{Z}_8}$", ax=ax2,s=120,color="Orange")
+    dfGeo2.plot.scatter('y1','y3', color="Green", label=r"MSSM models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax2, s=120)
+    dfGeo1a.plot.scatter('y1','y3', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax2, alpha=0.3)
+    dfGeo2a.plot.scatter('y1','y3', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax2, alpha=0.3)
+    # Thirth plane
+    dfGeo1.plot.scatter('y2','y3', label=r"MSSM models from $\mathrm{\mathbb{Z}_8}$", ax=ax3, s=120, color="Orange")
+    dfGeo2.plot.scatter('y2','y3', color="Green", label=r"MSSM models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3, s=120)
+    dfGeo1a.plot.scatter('y2','y3', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax3, alpha=0.3)
+    dfGeo2a.plot.scatter('y2','y3', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3, alpha=0.3)
+    
+
+    ax1.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax1.set_ylabel("$y_2$",fontdict = {'fontsize':40})
+    ax2.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax2.set_ylabel("$y_3$",fontdict = {'fontsize':40})
+    ax3.set_xlabel("$y_2$",fontdict = {'fontsize':36})
+    ax3.set_ylabel("$y_3$",fontdict = {'fontsize':40})
+    ax1.xaxis.set_tick_params(labelsize=30)
+    ax1.yaxis.set_tick_params(labelsize=30)
+    ax2.xaxis.set_tick_params(labelsize=30)
+    ax2.yaxis.set_tick_params(labelsize=30)
+    ax3.xaxis.set_tick_params(labelsize=30)
+    ax3.yaxis.set_tick_params(labelsize=30)
+    ax1.legend(fontsize = 40,loc="upper right", markerscale=3., scatterpoints=1)
+    ax2.legend(fontsize = 40, loc="upper right", markerscale=3., scatterpoints=1)
+    ax3.legend(fontsize = 40, loc="upper right", markerscale=3., scatterpoints=1)
+    fig.tight_layout()
+        
+    plt.savefig("./graphicsLatentSpace/"+latent_geo_z8[10:]+"."+ext, format='pdf', transparent=True)
+    
+    plt.show()
+
+    
+def plot_2d_latent_su5(latent_geo_z8, latent_geo_z12, su5_z8, su5_12, ext="pdf", number_sample=1000):
+    
+    path_geo_z8 = "./latentSpaces/"+latent_geo_z8
+    path_geo_z12 = "./latentSpaces/"+latent_geo_z12
+    
+    path_geo_su5_z8 = "./latentSpaces/"+su5_z8
+    path_geo_su5_z12 = "./latentSpaces/"+su5_12
+
+    head = ['y1','y2','y3']
+
+    dfGeo1 = pd.read_csv(path_geo_su5_z8, sep=" ", names=head).sample(50)
+    dfGeo2 = pd.read_csv(path_geo_su5_z12, sep=" ", names=head).sample(50)
+
+    dfGeo1a = pd.read_csv(path_geo_z8, sep=" ", names=head).sample(number_sample)
+    dfGeo2a = pd.read_csv(path_geo_z12, sep=" ", names=head).sample(number_sample)
+
+
+    fig, (ax1,ax2,ax3) = plt.subplots(figsize=(60,15),ncols=3)
+    # firt plane   
+    dfGeo1.plot.scatter('y1', 'y2', label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_8}$", ax=ax1, s=120, color="Orange")
+    dfGeo2.plot.scatter('y1', 'y2', color="Green", label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax1, s=120)
+    dfGeo1a.plot.scatter('y1','y2', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax1, alpha=0.3)
+    dfGeo2a.plot.scatter('y1','y2', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax1, alpha=0.3)
+    # second plane
+    dfGeo1.plot.scatter('y1','y3', label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_8}$", ax=ax2,s=120,color="Orange")
+    dfGeo2.plot.scatter('y1','y3', color="Green", label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax2, s=120)
+    dfGeo1a.plot.scatter('y1','y3', label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_8}$", ax=ax2, alpha=0.3)
+    dfGeo2a.plot.scatter('y1','y3', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax2, alpha=0.3)
+    # Thirth plane
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    dfGeo1.plot.scatter('y2','y3', label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_8}$", ax=ax3, s=120, color="Orange")
+    dfGeo2.plot.scatter('y2','y3', color="Green", label=r"$\mathrm{SU(5)}$ models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3, s=120)
+    dfGeo1a.plot.scatter('y2','y3', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax3, alpha=0.3)
+    dfGeo2a.plot.scatter('y2','y3', color="Red", label="Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3, alpha=0.3)
+    
+
+    ax1.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax1.set_ylabel("$y_2$",fontdict = {'fontsize':40})
+    ax2.set_xlabel("$y_1$",fontdict = {'fontsize':36})
+    ax2.set_ylabel("$y_3$",fontdict = {'fontsize':40})
+    ax3.set_xlabel("$y_2$",fontdict = {'fontsize':36})
+    ax3.set_ylabel("$y_3$",fontdict = {'fontsize':40})
+    ax1.xaxis.set_tick_params(labelsize=30)
+    ax1.yaxis.set_tick_params(labelsize=30)
+    ax2.xaxis.set_tick_params(labelsize=30)
+    ax2.yaxis.set_tick_params(labelsize=30)
+    ax3.xaxis.set_tick_params(labelsize=30)
+    ax3.yaxis.set_tick_params(labelsize=30)
+    ax1.legend(fontsize = 40,loc="upper right", markerscale=3., scatterpoints=1)
+    ax2.legend(fontsize = 40, loc="upper right", markerscale=3., scatterpoints=1)
+    ax3.legend(fontsize = 40, loc="upper right", markerscale=3., scatterpoints=1)
+    fig.tight_layout()
+        
+    plt.savefig("./graphicsLatentSpace/"+latent_geo_z8[10:]+"."+ext, format='pdf', transparent=True)
+    
+    plt.show()
+
