@@ -25,7 +25,7 @@ Once located in the module folder, you just need to run
 python setup.py install
 ```
 
-to install all the necessary dependencies.
+to install all the necessary dependencies, for all users it is necessary to add `sudo`.
 
 It is also important to note that there are several data files, covering Z12, Z8, among others, in the Data folder. We also provide a 
 .pt file containng the weights of the (trained) neural net and can be used to reproduce the latent space plots shown in this [paper.](https://arxiv.org/abs/2212.00821)
