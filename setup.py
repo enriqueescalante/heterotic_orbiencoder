@@ -11,7 +11,7 @@ setup(
     version=VERSION,
     description=DESCRIPTION,
     author="Enrique Escalante-Notario&Ignacio Portillo-Castillo& Saúl Ramos-Sánchez",
-    author_email="enriquescalante@gmail.com"
+    author_email="enriquescalante@gmail.com",
     url="http://github.com/enriqueescalante",
     install_requires=['numpy', 'torch', 'scikit-learn', 'pandas']
     scripts=[]
