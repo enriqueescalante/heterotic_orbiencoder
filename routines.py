@@ -68,6 +68,7 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
 
     for epoch in range(1,epochs+1):
         print('-' * 50)
+        print('Epoch {}/{}'.format(epoch, epochs))
         # Each epoch has a training and validation phase
         for phase in ['train','valid']:
             if phase == 'train':
@@ -111,7 +112,7 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
             epoch_acc = running_corrects / len(dataloader.dataset)
 
 
-            print('Epoch {}/{}'.format(epoch, epochs))
+
             print('{} Loss: {:.4f} Acc: {:.4f}'.format(phase, epoch_loss, epoch_acc))
 
             if phase == "train":
