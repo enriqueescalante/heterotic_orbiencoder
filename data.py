@@ -49,7 +49,7 @@ class CustomDatasetExtra(Dataset):
         data_tensor = pd.DataFrame(trans.transform(file_alternati).toarray())
         
         x = data_tensor.iloc[:,:].values
-        y = file_out.iloc[:, -1].values
+        y = data_tensor.iloc[:, -1].values
 
         self.X_train = torch.tensor(x,dtype=torch.float)
         self.y_train = torch.tensor(y)
