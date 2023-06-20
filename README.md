@@ -1,4 +1,4 @@
-# Heterotic_orbiencoder
+# Heterotic Orbiencoder
 
 
 ## Introduction
