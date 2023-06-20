@@ -128,8 +128,8 @@ def plot_2d_latent_space(latent_geo_z8, latent_geo_z12, ext="pdf", number_sample
     dfGeo1.plot.scatter('y1','y3', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax2)
     dfGeo2.plot.scatter('y1','y3', color="Red", label=r"Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax2)
     # Thirth plane
-    dfGeo1.plot.scatter('y1','y2', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax3)
-    dfGeo2.plot.scatter('y1','y2', color="Red", label=r"Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3)
+    dfGeo1.plot.scatter('y2','y3', label=r"Models from $\mathrm{\mathbb{Z}_8}$", ax=ax3)
+    dfGeo2.plot.scatter('y2','y3', color="Red", label=r"Models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax3)
 
 
     ax1.set_xlabel("$y_1$",fontdict = {'fontsize':36})
@@ -172,6 +172,7 @@ def plot_2d_latent_mssm(latent_geo_z8, latent_geo_z12, mssm_z8, mssm_12, ext="pd
 
 
     fig, (ax1,ax2,ax3) = plt.subplots(figsize=(60,15),ncols=3)
+    
     # firt plane   
     dfGeo1.plot.scatter('y1', 'y2', label=r"MSSM models from $\mathrm{\mathbb{Z}_8}$", ax=ax1, s=120, color="Orange")
     dfGeo2.plot.scatter('y1', 'y2', color="Green", label=r"MSSM models from $\mathrm{\mathbb{Z}_{12}}$", ax=ax1, s=120)
