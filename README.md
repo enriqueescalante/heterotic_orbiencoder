@@ -1,4 +1,4 @@
-# AutoEncoderST
+# Heterotic_orbiencoder
 
 
 ## Introduction
@@ -12,7 +12,7 @@ There are many ways to embed the space group, although, it is necessary to satis
 One way to search for the particular forms is to do a random search on the parameters, which turn out to be 8, 16-dimensional, vectors. This approach has already been addressed in this [article](https://arxiv.org/abs/1110.5229), using a software called The Orbifolder.
 
 
-This module uses the information produced by `the orbifolder`, but before it must be transformed by another Python module called [Makedataset](http://github.com/enriqueescalante)
+This module uses the information produced by `the orbifolder`, but before it must be transformed by another Python module called [Makedataset](https://github.com/enriqueescalante/makedataset)
 
 ## Installation
 
