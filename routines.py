@@ -137,6 +137,7 @@ def train(model_untrained, criterion, optimizer, scheduler, **kwargs):
     
     
 # Latent space model mapping
+# input: model_trained, dataloander_train, dim_dim, output_file
 def process(model, dataloader, latent, output_file):
     model.eval()
     processed = []
@@ -226,11 +227,11 @@ def reconstruction(model, label_states, **kwargs):
     
     
 # space latente new models
-def reconstruction_other_models(model, label_states, datasetname_other, **kwargs):
+def reconstruction_other_models(model, label_states, datasetname_other,label_other, **kwargs):
 
     # Load and ohe dataset 
     print('Preparing data',end='\n')
-    dataset_other = dt.CustomDataset(kwargs['datasetname'], datasetname_other)
+    dataset_other = dt.CustomDatasetExtra(kwargs['datasetname'], datasetname_other)
     dataloader_other = torch.utils.data.DataLoader(dataset_other,
         batch_size=kwargs['batchsize'], shuffle=True, num_workers=kwargs['workers'])
     
@@ -242,6 +243,6 @@ def reconstruction_other_models(model, label_states, datasetname_other, **kwargs
     model_trained.load_state_dict(dict_model['model_dict'])
     epoch_trained = dict_model['epoch']
         
-    output = "./latentSpaces/latent_"+datasetname_other+"_"+label_states
-    process(model, device, dataloader_other, output)
+    output = "./latentSpaces/latent_"+label_other+"-"+label_states
+    process(model_trained, dataloader_other, kwargs['latent'], output)
     
