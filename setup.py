@@ -7,12 +7,12 @@ DESCRIPTION = 'Autoencoder for dimensional reduction of effective string model p
 # Setup
 
 setup(
-    name="AEST",
+    name="heterotic_orbiencoder",
     version=VERSION,
     description=DESCRIPTION,
-    author="Enrique Escalante-Notario&Ignacio Portillo-Castillo& Saúl Ramos-Sánchez",
+    author="Enrique Escalante-Notario, Ignacio Portillo-Castillo,  Saúl Ramos-Sánchez",
     author_email="enriquescalante@gmail.com",
-    url="http://github.com/enriqueescalante",
+    url="https://github.com/enriqueescalante/heterotic_orbiencoder",
     install_requires=['jupyter','numpy', 'torch', 'scikit-learn', 'pandas', 'matplotlib'],
     scripts=[]
 )
